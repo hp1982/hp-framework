@@ -9,7 +9,7 @@ cache:
 
 before_cache:
   # No sense in caching current build artifacts
-  rm -rf $HOME/.m2/repository/cglib
+  rm -rf $HOME/.m2/repository/com.huipeng1982
 
 before_script:
 - wget https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.zip
