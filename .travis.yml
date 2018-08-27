@@ -1,7 +1,6 @@
 sudo: false
 language: java
-before_script:
-- echo "MAVEN_OPTS='-Xmx512m -Dgpg.skip=true'" > ~/.mavenrc
+jdk: oraclejdk8
 
 cache:
   directories:
@@ -22,9 +21,3 @@ before_script:
 install: true
 script:
 - mvn test -B -V
-
-matrix:
-  fast_finish: true
-  include:
-  - jdk: oraclejdk8
-  - jdk: openjdk8
