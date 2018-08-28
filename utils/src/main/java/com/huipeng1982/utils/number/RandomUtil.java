@@ -66,7 +66,7 @@ public class RandomUtil {
     public static int nextInt(Random random) {
         int n = random.nextInt();
         if (n == Integer.MIN_VALUE) {
-            n = 0; // corner case
+            n = 0;
         } else {
             n = Math.abs(n);
         }
@@ -104,7 +104,7 @@ public class RandomUtil {
      * <p>
      * JDK本身不具有控制两端范围的nextInt，因此参考Commons Lang RandomUtils的实现, 不直接复用是因为要传入Random实例
      *
-     * @see org.apache.commons.lang3.RandomUtils#nextInt(long, long)
+     * @see org.apache.commons.lang3.RandomUtils#nextInt(int, int)
      */
     public static int nextInt(Random random, int min, int max) {
         Validate.isTrue(max >= min, MSG);
@@ -132,7 +132,7 @@ public class RandomUtil {
     public static long nextLong(Random random) {
         long n = random.nextLong();
         if (n == Long.MIN_VALUE) {
-            n = 0; // corner case
+            n = 0;
         } else {
             n = Math.abs(n);
         }

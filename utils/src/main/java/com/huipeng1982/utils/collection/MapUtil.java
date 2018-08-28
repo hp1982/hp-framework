@@ -79,7 +79,7 @@ public class MapUtil {
      * @see com.google.common.collect.Maps#newHashMap()
      */
     public static <K, V> HashMap<K, V> newHashMap() {
-        return new HashMap<K, V>();
+        return new HashMap<K, V>(16);
     }
 
     ///////////////// from Guava的构造函数///////////////////
@@ -91,7 +91,7 @@ public class MapUtil {
      * <p>
      * 加载因子也是HashMap中减少Hash冲突的重要一环，如果读写频繁，总记录数不多的Map，可以比默认值0.75进一步降低，建议0.5
      *
-     * @see com.google.common.collect.Maps#newHashMap(int)
+     * @see com.google.common.collect.Maps#newHashMap()
      */
     public static <K, V> HashMap<K, V> newHashMapWithCapacity(int expectedSize, float loadFactor) {
         int finalSize = (int) (expectedSize / loadFactor + 1.0F);
@@ -104,7 +104,7 @@ public class MapUtil {
      * 同时初始化第一个元素
      */
     public static <K, V> HashMap<K, V> newHashMap(final K key, final V value) {
-        HashMap<K, V> map = new HashMap<K, V>();
+        HashMap<K, V> map = new HashMap<K, V>(16);
         map.put(key, value);
         return map;
     }
@@ -177,7 +177,7 @@ public class MapUtil {
      * 根据等号左边的类型，构造类型正确的ConcurrentHashMap.
      */
     public static <K, V> ConcurrentHashMap<K, V> newConcurrentHashMap() {
-        return new ConcurrentHashMap<K, V>();
+        return new ConcurrentHashMap<K, V>(16);
     }
 
     /**
@@ -327,6 +327,8 @@ public class MapUtil {
     public interface ValueCreator<T> {
         /**
          * 创建对象
+         *
+         * @return T
          */
         T get();
     }

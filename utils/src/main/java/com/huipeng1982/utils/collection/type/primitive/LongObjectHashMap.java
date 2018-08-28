@@ -37,7 +37,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
     private final float loadFactor;
     private final Set<Long> keySet = new KeySet();
     private final Set<Entry<Long, V>> entrySet = new EntrySet();
-    private final Iterable<PrimitiveEntry<V>> entries = () -> new PrimitiveIterator();
+    private final Iterable<PrimitiveEntry<V>> entries = () -> new <V>PrimitiveIterator();
     /**
      * The maximum number of elements allowed without allocating more space.
      */

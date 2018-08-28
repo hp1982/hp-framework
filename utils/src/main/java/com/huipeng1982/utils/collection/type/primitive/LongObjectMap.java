@@ -36,13 +36,18 @@ public interface LongObjectMap<V> extends Map<Long, V> {
 
     /**
      * Gets an iterable to traverse over the primitive entries contained in this map. As an optimization, the
-     * {@link PrimitiveEntry}s returned by the {@link Iterator} may change as the {@link Iterator} progresses. The
+     * {@link PrimitiveEntry}s returned by the {@link java.util.Iterator} may change as the {@link java.util.Iterator} progresses. The
      * caller should not rely on {@link PrimitiveEntry} key/value stability.
+     *
+     * @return Iterable
      */
     Iterable<PrimitiveEntry<V>> entries();
 
     /**
      * Indicates whether or not this map contains a value for the specified key.
+     *
+     * @param key the key for the entry to be contains from this map.
+     * @return boolean
      */
     boolean containsKey(long key);
 
@@ -54,16 +59,22 @@ public interface LongObjectMap<V> extends Map<Long, V> {
     interface PrimitiveEntry<V> {
         /**
          * Gets the key for this entry.
+         *
+         * @return long
          */
         long key();
 
         /**
          * Gets the value for this entry.
+         *
+         * @return V
          */
         V value();
 
         /**
          * Sets the value for this entry.
+         *
+         * @param value
          */
         void setValue(V value);
     }

@@ -40,7 +40,7 @@ public class IntObjectHashMap<V> implements IntObjectMap<V> {
     private final float loadFactor;
     private final Set<Integer> keySet = new KeySet();
     private final Set<Entry<Integer, V>> entrySet = new EntrySet();
-    private final Iterable<PrimitiveEntry<V>> entries = () -> new PrimitiveIterator();
+    private final Iterable<PrimitiveEntry<V>> entries = () -> new <V>PrimitiveIterator();
 
     /**
      * The maximum number of elements allowed without allocating more space.

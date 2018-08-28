@@ -61,7 +61,7 @@ public class MoreValidate {
      * 校验为正数则返回该数字，否则抛出异常.
      */
     public static double positive(@Nullable String role, double x) {
-        if (x <= 0) { // not x < 0, to work with NaN.
+        if (x <= 0) {
             throw new IllegalArgumentException(role + " (" + x + M_B_BE_Z);
         }
         return x;
@@ -111,7 +111,7 @@ public class MoreValidate {
      * 校验为非负数则返回该数字，否则抛出异常.
      */
     public static double nonNegative(@Nullable String role, double x) {
-        if (x < 0) { // not x < 0, to work with NaN.
+        if (x < 0) {
             throw new IllegalArgumentException(role + " (" + x + M_B_BE_Z);
         }
         return x;
