@@ -27,6 +27,9 @@ import java.util.Random;
  */
 public class ArrayUtil {
 
+    private ArrayUtil() {
+    }
+
     /**
      * 传入类型与大小创建数组.
      * <p>

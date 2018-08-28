@@ -15,13 +15,16 @@ import java.util.*;
  */
 public class SetUtil {
 
+    private SetUtil() {
+    }
+
     /**
      * 根据等号左边的类型，构造类型正确的HashSet.
      *
      * @see com.google.common.collect.Sets#newHashSet()
      */
     public static <T> HashSet<T> newHashSet() {
-        return new HashSet<T>();
+        return new HashSet<>();
     }
 
     /**
@@ -59,7 +62,7 @@ public class SetUtil {
      */
     @SuppressWarnings("rawtypes")
     public static <T extends Comparable> TreeSet<T> newSortedSet() {
-        return new TreeSet<T>();
+        return new TreeSet<>();
     }
 
     /**
@@ -75,7 +78,7 @@ public class SetUtil {
      * 根据等号左边的类型，构造类型正确的ConcurrentHashSet
      */
     public static <T> ConcurrentHashSet<T> newConcurrentHashSet() {
-        return new ConcurrentHashSet<T>();
+        return new ConcurrentHashSet<>();
     }
 
     ///////////////// from JDK Collections的常用构造函数 ///////////////////
@@ -99,7 +102,7 @@ public class SetUtil {
      * @see java.util.Collections#emptySet()
      */
     public static <T> Set<T> emptySetIfNull(final Set<T> set) {
-        return set == null ? (Set<T>) Collections.EMPTY_SET : set;
+        return set == null ? Collections.emptySet() : set;
     }
 
     /**

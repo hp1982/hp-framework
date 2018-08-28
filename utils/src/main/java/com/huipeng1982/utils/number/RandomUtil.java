@@ -21,6 +21,12 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class RandomUtil {
 
+    private static final String MSG = "Start value must be smaller or equal to end value.";
+
+    private RandomUtil() {
+    }
+
+
     /////////////////// 获取Random实例//////////////
 
     /**
@@ -101,7 +107,7 @@ public class RandomUtil {
      * @see org.apache.commons.lang3.RandomUtils#nextInt(long, long)
      */
     public static int nextInt(Random random, int min, int max) {
-        Validate.isTrue(max >= min, "Start value must be smaller or equal to end value.");
+        Validate.isTrue(max >= min, MSG);
         MoreValidate.nonNegative("min", min);
 
         if (min == max) {
@@ -166,7 +172,7 @@ public class RandomUtil {
      * @see org.apache.commons.lang3.RandomUtils#nextLong(long, long)
      */
     public static long nextLong(Random random, long min, long max) {
-        Validate.isTrue(max >= min, "Start value must be smaller or equal to end value.");
+        Validate.isTrue(max >= min, MSG);
         MoreValidate.nonNegative("min", min);
 
         if (min == max) {
@@ -219,7 +225,7 @@ public class RandomUtil {
      * 返回min-max之间的double
      */
     public static double nextDouble(Random random, final double min, final double max) {
-        Validate.isTrue(max >= min, "Start value must be smaller or equal to end value.");
+        Validate.isTrue(max >= min, MSG);
         MoreValidate.nonNegative("min", min);
 
         if (Double.compare(min, max) == 0) {

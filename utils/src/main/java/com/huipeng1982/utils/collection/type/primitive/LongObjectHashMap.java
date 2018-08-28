@@ -37,12 +37,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
     private final float loadFactor;
     private final Set<Long> keySet = new KeySet();
     private final Set<Entry<Long, V>> entrySet = new EntrySet();
-    private final Iterable<PrimitiveEntry<V>> entries = new Iterable<PrimitiveEntry<V>>() {
-        @Override
-        public Iterator<PrimitiveEntry<V>> iterator() {
-            return new PrimitiveIterator();
-        }
-    };
+    private final Iterable<PrimitiveEntry<V>> entries = () -> new PrimitiveIterator();
     /**
      * The maximum number of elements allowed without allocating more space.
      */
@@ -62,8 +57,10 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
 
     public LongObjectHashMap(int initialCapacity, float loadFactor) {
         if (loadFactor <= 0.0f || loadFactor > 1.0f) {
-            // Cannot exceed 1 because we can never store more than capacity elements;
-            // using a bigger loadFactor would trigger rehashing before the desired load is reached.
+            /**
+             * Cannot exceed 1 because we can never store more than capacity elements;
+             * using a bigger loadFactor would trigger rehashing before the desired load is reached.
+             */
             throw new IllegalArgumentException("loadFactor must be > 0 and <= 1");
         }
 
@@ -101,11 +98,14 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
     }
 
     public static int safeFindNextPositivePowerOfTwo(final int value) {
-        return value <= 0 ? 1 : value >= 0x40000000 ? 0x40000000 : findNextPositivePowerOfTwo(value);
+        int nextValue = value >= 0x40000000 ? 0x40000000 : findNextPositivePowerOfTwo(value);
+        return value <= 0 ? 1 : nextValue;
     }
 
     public static int findNextPositivePowerOfTwo(final int value) {
-        assert value > Integer.MIN_VALUE && value < 0x40000000;
+        if (!(value > Integer.MIN_VALUE && value < 0x40000000)) {
+            throw new IllegalArgumentException("Invalid value: " + value);
+        }
         return 1 << (32 - Integer.numberOfLeadingZeros(value - 1));
     }
 
@@ -410,7 +410,8 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
 
         int nextFree = index;
         int i = probeNext(index);
-        for (V value = values[i]; value != null; value = values[i = probeNext(i)]) {
+        for (V value = values[i]; value != null; value = values[probeNext(i)]) {
+            i = probeNext(i);
             long key = keys[i];
             int bucket = hashIndex(key);
             if (i < bucket && (bucket <= nextFree || nextFree <= i) || bucket <= nextFree && nextFree <= i) {
@@ -589,6 +590,7 @@ public class LongObjectHashMap<V> implements LongObjectMap<V> {
 
         private void scanNext() {
             while (++nextIndex != values.length && values[nextIndex] == null) {
+                // Do nothing because of nextIndex
             }
         }
 

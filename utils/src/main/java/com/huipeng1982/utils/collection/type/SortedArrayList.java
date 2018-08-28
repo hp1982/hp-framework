@@ -22,7 +22,7 @@ public final class SortedArrayList<E> extends ArrayList<E> {
 
     private static final long serialVersionUID = -8301136559614447593L;
 
-    protected final Comparator<? super E> comparator;
+    protected transient final Comparator<? super E> comparator;
 
     /**
      * Constructs a new <code>SortedArrayList</code>.
@@ -101,6 +101,8 @@ public final class SortedArrayList<E> extends ArrayList<E> {
     // ---------------------------------------------------------------- unsupported methods
 
     /**
+     * @deprecated (SortedArrayList不支持按照index插入)
+     *
      * @throws UnsupportedOperationException This method not supported.
      */
     @Override
@@ -110,6 +112,8 @@ public final class SortedArrayList<E> extends ArrayList<E> {
     }
 
     /**
+     * @deprecated (SortedArrayList不支持按照index插入)
+     *
      * @throws UnsupportedOperationException This method not supported.
      */
     @Override
@@ -119,6 +123,8 @@ public final class SortedArrayList<E> extends ArrayList<E> {
     }
 
     /**
+     * @deprecated (SortedArrayList不支持按照index插入)
+     *
      * @throws UnsupportedOperationException This method not supported.
      */
     @Override

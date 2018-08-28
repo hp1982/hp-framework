@@ -15,6 +15,9 @@ import java.util.EnumSet;
  */
 public class EnumUtil {
 
+    private EnumUtil() {
+    }
+
     /**
      * 将若干个枚举值转换为long(按bits 1,2,4,8...的方式叠加)，用于使用long保存多个选项的情况.
      */
