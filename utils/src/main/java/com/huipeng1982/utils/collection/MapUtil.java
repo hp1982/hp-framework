@@ -116,7 +116,7 @@ public class MapUtil {
      */
     public static <K, V> HashMap<K, V> newHashMap(@NotNull final K[] keys, @NotNull final V[] values) {
         Validate.isTrue(keys.length == values.length, "keys.length is %d but values.length is %d", keys.length,
-                values.length);
+            values.length);
 
         HashMap<K, V> map = new HashMap<K, V>(keys.length * 2);
 
@@ -134,7 +134,7 @@ public class MapUtil {
      */
     public static <K, V> HashMap<K, V> newHashMap(@NotNull final List<K> keys, @NotNull final List<V> values) {
         Validate.isTrue(keys.size() == values.size(), "keys.length is %s  but values.length is %s", keys.size(),
-                values.size());
+            values.size());
 
         HashMap<K, V> map = new HashMap<K, V>(keys.size() * 2);
         Iterator<K> keyIt = keys.iterator();
@@ -263,7 +263,7 @@ public class MapUtil {
      */
     public static <K, V extends Comparable> Map<K, V> sortByValue(Map<K, V> map, final boolean reverse) {
         return sortByValueInternal(map, reverse ? Ordering.from(new ComparableEntryValueComparator<K, V>()).reverse()
-                : new ComparableEntryValueComparator<K, V>());
+            : new ComparableEntryValueComparator<K, V>());
     }
 
     //////////// 按值排序及取TOP N的操作 /////////
@@ -295,7 +295,7 @@ public class MapUtil {
      */
     public static <K, V extends Comparable> Map<K, V> topNByValue(Map<K, V> map, final boolean reverse, int n) {
         return topNByValueInternal(map, n, reverse ? Ordering.from(new ComparableEntryValueComparator<K, V>()).reverse()
-                : new ComparableEntryValueComparator<K, V>());
+            : new ComparableEntryValueComparator<K, V>());
     }
 
     /**
@@ -334,7 +334,7 @@ public class MapUtil {
     }
 
     private static final class ComparableEntryValueComparator<K, V extends Comparable>
-            implements Comparator<Entry<K, V>> {
+        implements Comparator<Entry<K, V>> {
         @Override
         public int compare(Entry<K, V> o1, Entry<K, V> o2) {
             return (o1.getValue()).compareTo(o2.getValue());

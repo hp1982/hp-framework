@@ -311,7 +311,7 @@ public class RandomUtil {
      */
     public static String randomAsciiRandomLength(int minLength, int maxLength) {
         return RandomStringUtils.random(nextInt(minLength, maxLength), 32, 127, false, false, null,
-                threadLocalRandom());
+            threadLocalRandom());
     }
 
     /**

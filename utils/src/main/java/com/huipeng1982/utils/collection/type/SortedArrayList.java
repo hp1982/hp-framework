@@ -1,9 +1,6 @@
 package com.huipeng1982.utils.collection.type;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * 从Jodd整体复制，部分指定了index的操作不支持，如 add(index, element)
@@ -89,6 +86,27 @@ public final class SortedArrayList<E> extends ArrayList<E> {
             }
         }
         return changed;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof SortedArrayList)) {
+            return false;
+        }
+
+        ListIterator<E> e1 = listIterator();
+        ListIterator<?> e2 = ((List<?>) o).listIterator();
+        while (e1.hasNext() && e2.hasNext()) {
+            E o1 = e1.next();
+            Object o2 = e2.next();
+            if (!(o1 == null ? o2 == null : o1.equals(o2))) {
+                return false;
+            }
+        }
+        return !(e1.hasNext() || e2.hasNext());
     }
 
     /**

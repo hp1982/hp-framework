@@ -16,8 +16,8 @@ public class EnumUtilTest {
 
         assertThat(EnumUtil.processBits(Options.class, 3)).hasSize(2).containsExactly(Options.A, Options.B);
         assertThat(EnumUtil.processBits(Options.class,
-                EnumUtil.generateBits(Options.class, Options.A, Options.C, Options.D))).hasSize(3)
-                .containsExactly(Options.A, Options.C, Options.D);
+            EnumUtil.generateBits(Options.class, Options.A, Options.C, Options.D))).hasSize(3)
+            .containsExactly(Options.A, Options.C, Options.D);
 
     }
 

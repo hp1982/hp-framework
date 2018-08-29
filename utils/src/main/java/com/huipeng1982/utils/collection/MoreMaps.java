@@ -35,7 +35,7 @@ public class MoreMaps {
      */
     public static <K, V> ConcurrentMap<K, V> createWeakValueConcurrentMap(int initialCapacity, int concurrencyLevel) {
         return new MapMaker().weakValues().initialCapacity(initialCapacity).concurrencyLevel(concurrencyLevel)
-                .makeMap();
+            .makeMap();
     }
 
     /**
