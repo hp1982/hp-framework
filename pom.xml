@@ -68,6 +68,8 @@
         <assertj.version>3.9.0</assertj.version>
         <asm.version>6.2.1</asm.version>
         <ant.version>1.10.3</ant.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <jaxen.version>1.1.6</jaxen.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
@@ -286,14 +288,21 @@
             <dependency>
                 <groupId>dom4j</groupId>
                 <artifactId>dom4j</artifactId>
-                <version>1.6.1</version>
+                <version>${dom4j.version}</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>jaxen</groupId>
                 <artifactId>jaxen</artifactId>
-                <version>1.1.6</version>
+                <version>${jaxen.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-nop</artifactId>
+                <version>${slf4j.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
