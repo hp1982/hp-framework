@@ -17,6 +17,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RuntimeUtil {
 
+    private static final int JVM_NAME_SIZE = 2;
+    private static final int CALLER_MIN_STACKTRACE_SIZE = 4;
+    private static final int CURRENT_MIN_STACKTRACE_SIZE = 3;
+
     private static AtomicInteger shutdownHookThreadIndex = new AtomicInteger(0);
 
     private RuntimeUtil() {
@@ -34,7 +38,7 @@ public class RuntimeUtil {
         // format: "pid@hostname"
         String jvmName = ManagementFactory.getRuntimeMXBean().getName();
         String[] split = jvmName.split("@");
-        if (split.length != 2) {
+        if (split.length != JVM_NAME_SIZE) {
             return -1;
         }
 
@@ -86,7 +90,7 @@ public class RuntimeUtil {
      */
     public static String getCallerClass() {
         StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-        if (stacktrace.length >= 4) {
+        if (stacktrace.length >= CALLER_MIN_STACKTRACE_SIZE) {
             StackTraceElement element = stacktrace[3];
             return element.getClassName();
         } else {
@@ -101,7 +105,7 @@ public class RuntimeUtil {
      */
     public static String getCallerMethod() {
         StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-        if (stacktrace.length >= 4) {
+        if (stacktrace.length >= CALLER_MIN_STACKTRACE_SIZE) {
             StackTraceElement element = stacktrace[3];
             return element.getClassName() + '.' + element.getMethodName() + "()";
         } else {
@@ -116,7 +120,7 @@ public class RuntimeUtil {
      */
     public static String getCurrentClass() {
         StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-        if (stacktrace.length >= 3) {
+        if (stacktrace.length >= CURRENT_MIN_STACKTRACE_SIZE) {
             StackTraceElement element = stacktrace[2];
             return element.getClassName();
         } else {
@@ -131,7 +135,7 @@ public class RuntimeUtil {
      */
     public static String getCurrentMethod() {
         StackTraceElement[] stacktrace = Thread.currentThread().getStackTrace();
-        if (stacktrace.length >= 3) {
+        if (stacktrace.length >= CURRENT_MIN_STACKTRACE_SIZE) {
             StackTraceElement element = stacktrace[2];
             return element.getClassName() + '.' + element.getMethodName() + "()";
         } else {

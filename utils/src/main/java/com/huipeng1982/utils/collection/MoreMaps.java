@@ -117,6 +117,7 @@ public class MoreMaps {
      * <p>
      * 另有其他结构存储values的MultiMap，请自行参考MultimapBuilder使用.
      */
+    @SuppressWarnings("unchecked")
     public static <K, V> SortedSetMultimap<K, V> createSortedSetMultiValueMap(Comparator<V> comparator) {
         return (SortedSetMultimap<K, V>) MultimapBuilder.hashKeys().treeSetValues(comparator);
     }
