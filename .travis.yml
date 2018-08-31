@@ -17,7 +17,14 @@ before_script:
 - export PATH="$M2_HOME/bin:$PATH"
 - echo "MAVEN_OPTS='-Xmx512m -Dgpg.skip=true'" > ~/.mavenrc
 
+after_success: "sbt coveralls"
+
 # Skip default "mvn install" issued by Travis
 install: true
 script:
 - mvn test -B -V
+
+notifications:
+    email:
+        recipients:
+        - huipeng1982@live.com
