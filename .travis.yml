@@ -23,7 +23,7 @@ after_success: "sbt coveralls"
 # Skip default "mvn install" issued by Travis
 install: true
 script:
-- mvn install
+- mvn test -B -V
 
 notifications:
     email:
