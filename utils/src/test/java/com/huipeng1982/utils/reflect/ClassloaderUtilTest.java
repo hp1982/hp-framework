@@ -12,5 +12,7 @@ public class ClassloaderUtilTest {
         boolean isPresent = ClassLoaderUtil.isPresent("com.huipeng1982.utils.reflect.ClassloaderUtilTest", loader);
         assertThat(isPresent).isTrue();
         System.out.println("com.huipeng1982.utils.reflect.ClassloaderUtilTest isPresent : " + isPresent);
+
+
     }
 }
