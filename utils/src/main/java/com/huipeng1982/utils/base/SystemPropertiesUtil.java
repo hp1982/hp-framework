@@ -208,7 +208,7 @@ public class SystemPropertiesUtil {
 
         private static final long serialVersionUID = -8282465702074684324L;
 
-        protected transient List<AbstractPropertiesListener> listeners = new CopyOnWriteArrayList<AbstractPropertiesListener>();
+        protected transient List<AbstractPropertiesListener> listeners = new CopyOnWriteArrayList<>();
 
         public ListenableProperties(Properties properties) {
             super(properties);

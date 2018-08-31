@@ -61,6 +61,7 @@
         <jodd.version>5.0.4</jodd.version>
         <slf4j.version>1.7.25</slf4j.version>
         <orika.version>1.5.2</orika.version>
+        <dozer.version>6.4.0</dozer.version>
         <jackson.version>2.9.3</jackson.version>
         <cglib.version>3.2.5</cglib.version>
         <commons-collections.version>4.1</commons-collections.version>
@@ -247,10 +248,16 @@
             </dependency>
 
             <dependency>
+                <groupId>com.github.dozermapper</groupId>
+                <artifactId>dozer-core</artifactId>
+                <version>${dozer.version}</version>
+                <optional>true</optional>
+            </dependency>
+
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons-collections.version}</version>
-                <optional>true</optional>
             </dependency>
 
             <dependency>

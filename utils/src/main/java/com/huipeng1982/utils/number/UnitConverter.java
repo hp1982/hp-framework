@@ -22,6 +22,7 @@ public class UnitConverter {
     private static final Pattern NUMBER_AND_UNIT = Pattern.compile("(\\d+)([a-zA-Z]+)?");
     private static final int UNIT_STR_LENGTH = 2;
     private static final char UNIT_STR_CHAR_AT_1 = 's';
+
     private UnitConverter() {
     }
 
