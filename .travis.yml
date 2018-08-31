@@ -16,6 +16,7 @@ before_script:
 - export M2_HOME="$PWD/apache-maven-3.5.4"
 - export PATH="$M2_HOME/bin:$PATH"
 - echo "MAVEN_OPTS='-Xmx512m -Dgpg.skip=true'" > ~/.mavenrc
+- mvn package -U
 
 after_success: "sbt coveralls"
 
