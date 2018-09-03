@@ -1,6 +1,7 @@
 package com.huipeng1982.utils.io;
 
 import com.google.common.io.Files;
+import com.huipeng1982.utils.text.EscapeUtil;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class ResourceUtilTest {
 
     @Test
     public void resourceNameTest() throws IOException {
-        JarFile guavaFile = new JarFile(FilePathUtil.getJarPath(Files.class));
+        JarFile guavaFile = new JarFile(EscapeUtil.urlDecode(FilePathUtil.getJarPath(Files.class)));
         assertThat(guavaFile.getEntry("META-INF/MANIFEST.MF")).isNotNull();
         assertThat(guavaFile.getEntry("/META-INF/MANIFEST.MF")).isNull();
         guavaFile.close();
