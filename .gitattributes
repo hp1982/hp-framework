@@ -7,3 +7,4 @@
 # Text
 *.xml text eol=lf
 *.txt text eol=lf
+*.properties text eol=lf

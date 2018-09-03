@@ -40,6 +40,13 @@ public class EnumUtil {
     }
 
     /**
+     * 将long重新解析为若干个枚举值，然后查看是否包含enu.
+     */
+    public static boolean containsEnum(final long value, final Enum enu) {
+        return EnumUtils.processBitVector(enu.getClass(), value).contains(enu);
+    }
+
+    /**
      * Enum转换为String
      */
     public static String toString(Enum e) {
