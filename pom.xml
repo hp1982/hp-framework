@@ -3,12 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-    </parent>
-
     <!-- ====================================================================== -->
     <!-- P R O J E C T  D E S C R I P T I O N -->
     <!-- ====================================================================== -->
@@ -51,7 +45,6 @@
     <!-- ====================================================================== -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <java.version.source>1.8</java.version.source>
         <java.version.target>1.8</java.version.target>
@@ -73,14 +66,18 @@
         <ant.version>1.10.3</ant.version>
         <dom4j.version>1.6.1</dom4j.version>
         <jaxen.version>1.1.6</jaxen.version>
+
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
-        <maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
+        <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+        <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <java.compiler.argument></java.compiler.argument>
 
         <java.test.compiler.argument>${java.compiler.argument}</java.test.compiler.argument>
-        <gpg.skip>true</gpg.skip>
     </properties>
 
     <!-- ====================================================================== -->
@@ -89,21 +86,6 @@
     <modules>
         <module>utils</module>
     </modules>
-
-    <!-- ====================================================================== -->
-    <!-- P R O F I L E S -->
-    <!-- ====================================================================== -->
-    <profiles>
-        <profile>
-            <id>java8</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-            </activation>
-            <properties>
-                <java.test.compiler.argument>-parameters</java.test.compiler.argument>
-            </properties>
-        </profile>
-    </profiles>
 
     <!-- ====================================================================== -->
     <!-- B U I L D -->
@@ -118,21 +100,30 @@
                     <configuration>
                         <source>${java.version.source}</source>
                         <target>${java.version.target}</target>
-                        <compilerArgument>${java.compiler.argument}</compilerArgument>
-                        <testSource>${java.specification.version}</testSource>
-                        <testTarget>${java.specification.version}</testTarget>
-                        <testCompilerArgument>${java.test.compiler.argument}</testCompilerArgument>
+                        <encoding>${project.build.sourceEncoding}</encoding>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.21.0</version>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.21.0</version>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -140,24 +131,9 @@
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
                         <failOnError>false</failOnError>
-                        <quiet>true</quiet>
-                        <detectLinks>false</detectLinks>
-                        <detectOfflineLinks>false</detectOfflineLinks>
-                        <!--<skip>${skipJavadoc}</skip>-->
-                        <use>false</use>
-                        <doclint>none</doclint>
-                        <additionalDependencies>
-                            <additionalDependency>
-                                <groupId>org.ow2.asm</groupId>
-                                <artifactId>asm</artifactId>
-                                <version>${asm.version}</version>
-                            </additionalDependency>
-                            <additionalDependency>
-                                <groupId>org.apache.ant</groupId>
-                                <artifactId>ant</artifactId>
-                                <version>${ant.version}</version>
-                            </additionalDependency>
-                        </additionalDependencies>
+                        <additionalOptions>
+                            <additionalOption>-Xdoclint:none</additionalOption>
+                        </additionalOptions>
                     </configuration>
                     <executions>
                         <execution>
@@ -169,28 +145,75 @@
                     </executions>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <argLine>-Dfile.encoding=UTF-8</argLine>
+                        <skip>false</skip>
+                        <systemPropertyVariables>
+                            <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>post-unit-test</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                            <configuration>
+                                <dataFile>target/jacoco.exec</dataFile>
+                                <outputDirectory>target/jacoco-ut</outputDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
                     <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>jarjar-maven-plugin</artifactId>
-                    <version>1.9</version>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-plugin.version}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
 
     <!-- ====================================================================== -->
@@ -330,4 +353,18 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- ====================================================================== -->
+    <!-- D I S T R I B U T I O N M A N A G E M E N T -->
+    <!-- ====================================================================== -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
