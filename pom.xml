@@ -8,7 +8,7 @@
     <!-- ====================================================================== -->
     <groupId>com.huipeng1982</groupId>
     <artifactId>hp-framework-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>pom</packaging>
 
 
@@ -48,31 +48,31 @@
 
         <java.version.source>1.8</java.version.source>
         <java.version.target>1.8</java.version.target>
-        <guava.version>23.6-jre</guava.version>
-        <commons-lang3.version>3.7</commons-lang3.version>
-        <commons-text.version>1.4</commons-text.version>
-        <jodd.version>5.0.4</jodd.version>
-        <slf4j.version>1.7.25</slf4j.version>
-        <orika.version>1.5.2</orika.version>
-        <dozer.version>6.4.0</dozer.version>
-        <jackson.version>2.9.3</jackson.version>
-        <cglib.version>3.2.5</cglib.version>
-        <commons-collections.version>4.1</commons-collections.version>
+        <guava.version>27.1-jre</guava.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-text.version>1.6</commons-text.version>
+        <jodd.version>5.0.12</jodd.version>
+        <slf4j.version>1.7.26</slf4j.version>
+        <orika.version>1.5.4</orika.version>
+        <dozer.version>6.4.1</dozer.version>
+        <jackson.version>2.9.8</jackson.version>
+        <cglib.version>3.2.12</cglib.version>
+        <commons-collections.version>4.3</commons-collections.version>
         <logback.version>1.2.3</logback.version>
         <junit.version>4.12</junit.version>
-        <assertj.version>3.9.0</assertj.version>
-        <mockito.version>2.21.0</mockito.version>
-        <asm.version>6.2.1</asm.version>
-        <ant.version>1.10.3</ant.version>
+        <assertj.version>3.12.2</assertj.version>
+        <mockito.version>2.27.0</mockito.version>
+        <asm.version>7.1</asm.version>
+        <ant.version>1.10.5</ant.version>
         <dom4j.version>1.6.1</dom4j.version>
-        <jaxen.version>1.1.6</jaxen.version>
+        <jaxen.version>1.2.0</jaxen.version>
 
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
-        <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
-        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+        <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
         <nexus-staging-plugin.version>1.6.8</nexus-staging-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <java.compiler.argument></java.compiler.argument>
