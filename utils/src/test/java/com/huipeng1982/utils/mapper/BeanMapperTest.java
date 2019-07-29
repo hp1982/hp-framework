@@ -1,6 +1,10 @@
 package com.huipeng1982.utils.mapper;
 
 import com.huipeng1982.utils.collection.ListUtil;
+import com.huipeng1982.utils.mapper.converter.MapStructConverter;
+import com.huipeng1982.utils.mapper.model.Student;
+import com.huipeng1982.utils.mapper.model.StudentVO;
+import com.huipeng1982.utils.mapper.model.Teacher;
 import ma.glasnost.orika.metadata.Type;
 import org.junit.Test;
 
@@ -9,6 +13,17 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BeanMapperTest {
+
+    @Test
+    public void copySingleObjectByMapStructConverter() {
+        Student student = new Student("zhang3", 20, new Teacher("li4"), ListUtil.newArrayList("chinese", "english"));
+        StudentVO studentVo2 = MapStructConverter.INSTANCE.studentToStudentVO(student);
+
+        assertThat(studentVo2.name).isEqualTo("zhang3");
+        assertThat(studentVo2.getAge()).isEqualTo(20);
+        assertThat(studentVo2.getTeacher().getName()).isEqualTo("li4");
+        assertThat(studentVo2.getCourse()).containsExactly("chinese", "english");
+    }
 
     @Test
     public void copySingleObject() {
@@ -94,117 +109,4 @@ public class BeanMapperTest {
         assertThat(studentVo.getCourse()).containsExactly("chinese", "english");
     }
 
-    public static class Student {
-        public String name;
-        private int age;
-        private Teacher teacher;
-        private List<String> course = ListUtil.newArrayList();
-
-        public Student(String name, int age, Teacher teacher, List<String> course) {
-            this.name = name;
-            this.age = age;
-            this.teacher = teacher;
-            this.course = course;
-        }
-
-        public List<String> getCourse() {
-            return course;
-        }
-
-        public void setCourse(List<String> course) {
-            this.course = course;
-        }
-
-        public int getAge() {
-            return age;
-        }
-
-        public void setAge(int age) {
-            this.age = age;
-        }
-
-        public Teacher getTeacher() {
-            return teacher;
-        }
-
-        public void setTeacher(Teacher teacher) {
-            this.teacher = teacher;
-        }
-
-    }
-
-    public static class Teacher {
-        private String name;
-
-        public Teacher(String name) {
-            super();
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-    }
-
-    public static class StudentVO {
-        public String name;
-        private int age;
-        private TeacherVO teacher;
-        private List<String> course = ListUtil.newArrayList();
-
-        public StudentVO(String name, int age, TeacherVO teacher, List<String> course) {
-            this.name = name;
-            this.age = age;
-            this.teacher = teacher;
-            this.course = course;
-        }
-
-        public List<String> getCourse() {
-            return course;
-        }
-
-        public void setCourse(List<String> course) {
-            this.course = course;
-        }
-
-        public int getAge() {
-            return age;
-        }
-
-        public void setAge(int age) {
-            this.age = age;
-        }
-
-        public TeacherVO getTeacher() {
-            return teacher;
-        }
-
-        public void setTeacher(TeacherVO teacher) {
-            this.teacher = teacher;
-        }
-
-    }
-
-    public static class TeacherVO {
-        private String name;
-
-        public TeacherVO(String name) {
-            super();
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-    }
 }
