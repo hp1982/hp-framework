@@ -1,69 +1,97 @@
 package com.huipeng1982.utils.mapper;
 
-import com.github.dozermapper.core.DozerBeanMapperBuilder;
-import com.github.dozermapper.core.Mapper;
-import com.huipeng1982.utils.collection.ArrayUtil;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ma.glasnost.orika.metadata.Type;
+import ma.glasnost.orika.metadata.TypeFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 实现深度的BeanOfClasssA<->BeanOfClassB复制
+ * 简单封装orika, 实现深度的BeanOfClasssA<->BeanOfClassB复制
  * <p>
- * 不要使用Apache Common BeanUtils进行类复制，每次就行反射查询对象的属性列表, 非常缓慢.
+ * 不要是用Apache Common BeanUtils进行类复制，每次就行反射查询对象的属性列表, 非常缓慢.
  * <p>
- * orika性能比Dozer快近十倍，也不需要Getter函数与无参构造函数
- * <p>
- * 但我们内部修复了的bug，社区版没有修复: https://github.com/orika-mapper/orika/issues/252
- * <p>
- * 如果应用启动时有并发流量进入，可能导致两个不同类型的同名属性间(如Order的User user属性，与OrderVO的UserVO user)的复制失败，只有重启才能解决。
- * <p>
- * 因此安全起见，使用Dozer。
- * <p>
- * 注意: 需要参考POM文件，显式引用Dozer.
+ * 注意: 需要参考本模块的POM文件，显式引用orika.
+ *
+ * @author huipeng
  */
 public class BeanMapper {
 
-    private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+    private BeanMapper(){}
 
-    private BeanMapper() {
+    private static MapperFacade mapper;
+
+    static {
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapper = mapperFactory.getMapperFacade();
     }
 
     /**
      * 简单的复制出新类型对象.
+     * <p>
+     * 通过source.getClass() 获得源Class
      */
     public static <S, D> D map(S source, Class<D> destinationClass) {
         return mapper.map(source, destinationClass);
     }
 
     /**
-     * 简单的复制出新对象ArrayList
+     * 极致性能的复制出新类型对象.
+     * <p>
+     * 预先通过BeanMapper.getType() 静态获取并缓存Type类型，在此处传入
      */
-    public static <S, D> List<D> mapList(Iterable<S> sourceList, Class<D> destinationClass) {
-        List<D> destionationList = new ArrayList<>();
-        for (S source : sourceList) {
-            if (source != null) {
-                destionationList.add(mapper.map(source, destinationClass));
-            }
-        }
-        return destionationList;
+    public static <S, D> D map(S source, Type<S> sourceType, Type<D> destinationType) {
+        return mapper.map(source, sourceType, destinationType);
     }
 
     /**
-     * 简单复制出新对象数组
+     * 简单的复制出新对象列表到ArrayList
+     * <p>
+     * 不建议使用mapper.mapAsList(Iterable<S>,Class<D>)接口, sourceClass需要反射，实在有点慢
      */
-    public static <S, D> D[] mapArray(final S[] sourceArray, final Class<D> destinationClass) {
-        D[] destinationArray = ArrayUtil.newArray(destinationClass, sourceArray.length);
-
-        int i = 0;
-        for (S source : sourceArray) {
-            if (source != null) {
-                destinationArray[i] = mapper.map(sourceArray[i], destinationClass);
-                i++;
-            }
-        }
-
-        return destinationArray;
+    public static <S, D> List<D> mapList(Iterable<S> sourceList, Class<S> sourceClass,
+                                         Class<D> destinationClass) {
+        return mapper.mapAsList(sourceList, TypeFactory.valueOf(sourceClass),
+            TypeFactory.valueOf(destinationClass));
     }
-}
 
+    /**
+     * 极致性能的复制出新类型对象到ArrayList.
+     * <p>
+     * 预先通过BeanMapper.getType() 静态获取并缓存Type类型，在此处传入
+     */
+    public static <S, D> List<D> mapList(Iterable<S> sourceList, Type<S> sourceType,
+                                         Type<D> destinationType) {
+        return mapper.mapAsList(sourceList, sourceType, destinationType);
+    }
+
+    /**
+     * 简单复制出新对象列表到数组
+     * <p>
+     * 通过source.getComponentType() 获得源Class
+     */
+    public static <S, D> D[] mapArray(final D[] destination, final S[] source,
+                                      final Class<D> destinationClass) {
+        return mapper.mapAsArray(destination, source, destinationClass);
+    }
+
+    /**
+     * 极致性能的复制出新类型对象到数组
+     * <p>
+     * 预先通过BeanMapper.getType() 静态获取并缓存Type类型，在此处传入
+     */
+    public static <S, D> D[] mapArray(D[] destination, S[] source, Type<S> sourceType,
+                                      Type<D> destinationType) {
+        return mapper.mapAsArray(destination, source, sourceType, destinationType);
+    }
+
+    /**
+     * 预先获取orika转换所需要的Type，避免每次转换.
+     */
+    public static <E> Type<E> getType(final Class<E> rawType) {
+        return TypeFactory.valueOf(rawType);
+    }
+
+}

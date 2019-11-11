@@ -29,7 +29,7 @@ public class BeanMapperTest {
         Student student3 = new Student("zhang5", 40, new Teacher("li6"), ListUtil.newArrayList("chinese3", "english5"));
         List<Student> studentList = ListUtil.newArrayList(student1, student2, student3);
 
-        List<StudentVO> studentVoList = BeanMapper.mapList(studentList, StudentVO.class);
+        List<StudentVO> studentVoList = BeanMapper.mapList(studentList, Student.class, StudentVO.class);
         assertThat(studentVoList).hasSize(3);
         StudentVO studentVo = studentVoList.get(0);
 
@@ -46,7 +46,8 @@ public class BeanMapperTest {
         Student student2 = new Student("zhang4", 30, new Teacher("li5"), ListUtil.newArrayList("chinese2", "english4"));
         Student student3 = new Student("zhang5", 40, new Teacher("li6"), ListUtil.newArrayList("chinese3", "english5"));
         Student[] studentList = new Student[]{student1, student2, student3};
-        StudentVO[] studentVoList = BeanMapper.mapArray(studentList, StudentVO.class);
+        StudentVO[] studentVoList = new StudentVO[studentList.length];
+        BeanMapper.mapArray(studentVoList, studentList, StudentVO.class);
         assertThat(studentVoList).hasSize(3);
         StudentVO studentVo = studentVoList[0];
 
