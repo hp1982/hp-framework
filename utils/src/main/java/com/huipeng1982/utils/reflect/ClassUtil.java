@@ -2,12 +2,14 @@ package com.huipeng1982.utils.reflect;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.Validate;
+import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 获取Class信息的工具类
@@ -22,6 +24,19 @@ public class ClassUtil {
     private static Logger logger = LoggerFactory.getLogger(ClassUtil.class);
 
     private ClassUtil() {
+    }
+
+    /**
+     * 运行时查找所有的子类
+     *
+     * @param prefix
+     * @param type
+     * @param <T>
+     * @return
+     */
+    public static <T> Set<Class<? extends T>> getAllSubTypes(final String prefix, final Class<T> type){
+        Reflections reflections = new Reflections(prefix);
+        return reflections.getSubTypesOf(type);
     }
 
     ////// Short class and Package Name ////...

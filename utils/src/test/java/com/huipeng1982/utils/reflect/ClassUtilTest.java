@@ -33,7 +33,11 @@ public class ClassUtilTest {
 
         assertThat(ClassUtil.getAllSuperclasses(BClass.class)).hasSize(2).contains(AClass.class, Object.class);
 
+        assertThat(ClassUtil.getAllSubTypes("", DInterface.class)).hasSize(2);
+
         assertThat(AnnotationUtil.getAllAnnotations(BClass.class)).hasSize(4);
+
+        assertThat(AnnotationUtil.getAllAnnotated("", DAnnotation.class)).hasSize(2);
 
         assertThat(AnnotationUtil.getAnnotatedPublicFields(BClass.class, AAnnotation.class)).hasSize(2).contains(
             ReflectionUtil.getField(BClass.class, "sfield"), ReflectionUtil.getField(BClass.class, "tfield"));

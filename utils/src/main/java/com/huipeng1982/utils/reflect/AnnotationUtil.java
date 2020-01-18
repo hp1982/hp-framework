@@ -1,6 +1,7 @@
 package com.huipeng1982.utils.reflect;
 
 import org.apache.commons.lang3.ClassUtils;
+import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -17,6 +18,18 @@ import java.util.*;
 public class AnnotationUtil {
 
     private AnnotationUtil() {
+    }
+
+    /**
+     * 运行时查找所有的注解类
+     *
+     * @param prefix
+     * @param annotationType
+     * @return
+     */
+    public static Set<Class> getAllAnnotated(final String prefix, final Class annotationType){
+        Reflections reflections = new Reflections(prefix);
+        return reflections.getTypesAnnotatedWith(annotationType);
     }
 
     /**
