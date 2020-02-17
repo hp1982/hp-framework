@@ -35,8 +35,10 @@
         <module>jdbc-starter</module>
         <module>jpa-starter</module>
         <module>mybatis-starter</module>
+        <module>r2dbc-starter</module>
         <module>redis-starter</module>
         <module>elasticsearch-starter</module>
+        <module>test-starter</module>
         <module>cloud-client-starter</module>
         <module>security-starter</module>
         <module>swagger-starter</module>

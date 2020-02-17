@@ -13,7 +13,6 @@
     <!-- P R O J E C T  D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>hp-framework-spring-reactiveweb-starter</artifactId>
-    <packaging>pom</packaging>
 
     <name>Hui Peng's Java Framework Spring Boot Reactive Web Starter</name>
 
@@ -21,7 +20,45 @@
     <!-- P R O P E R T I E S -->
     <!-- ====================================================================== -->
     <properties>
+        <nosqlunit.version>0.10.0</nosqlunit.version>
+        <embedded-redis.version>0.6</embedded-redis.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.huipeng1982</groupId>
+            <artifactId>hp-framework-spring-test-starter</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>

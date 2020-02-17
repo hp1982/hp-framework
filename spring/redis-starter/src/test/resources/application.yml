@@ -1,0 +1,18 @@
+spring:
+    application:
+        name: hp-framework-spring-redis-starter-test
+    redis:
+        host: 127.0.0.1
+        database: 15
+        port: 6379
+        ssl: false
+        timeout: 5000
+        lettuce:
+            pool:
+                max-active: 8
+                max-idle: 8
+                min-idle: 0
+                max-wait: -1ms
+                time-betweeneviction-runs:
+            shutdown-timeout: 100ms
+#        password:
