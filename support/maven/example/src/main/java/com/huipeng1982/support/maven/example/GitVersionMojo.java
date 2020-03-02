@@ -29,6 +29,7 @@ public class GitVersionMojo extends AbstractMojo {
     @Inject
     private VersionProvider versionProvider;
 
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         String version = versionProvider.getVersion(command);
         project.getProperties().put("exampleVersion", version);

@@ -31,7 +31,11 @@
     <!-- D E P E N D E N C Y -->
     <!-- ====================================================================== -->
     <dependencies>
-
+        <dependency>
+            <groupId>com.huipeng1982</groupId>
+            <artifactId>hp-framework-utils</artifactId>
+            <version>0.0.6</version>
+        </dependency>
     </dependencies>
 
     <!-- ====================================================================== -->
