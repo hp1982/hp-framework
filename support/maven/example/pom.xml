@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.huipeng1982</groupId>
+        <artifactId>hp-framework-maven-plugins</artifactId>
+        <version>0.0.6</version>
+    </parent>
+
+    <!-- ====================================================================== -->
+    <!-- P R O J E C T  D E S C R I P T I O N -->
+    <!-- ====================================================================== -->
+    <artifactId>hp-framework-maven-plugins-example</artifactId>
+    <name>Hui Peng's Java Framework Maven Plugins Example</name>
+    <packaging>maven-plugin</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <prerequisites>
+        <maven>3.5.0</maven>
+    </prerequisites>
+
+    <!-- ====================================================================== -->
+    <!-- D E P E N D E N C Y -->
+    <!-- ====================================================================== -->
+    <dependencies>
+
+    </dependencies>
+
+    <!-- ====================================================================== -->
+    <!-- B U I L D -->
+    <!-- ====================================================================== -->
+    <build>
+        <!-- Pin the version of the plugins we are using -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.6.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.8.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <!-- include the plugin report when building the 'site' -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>

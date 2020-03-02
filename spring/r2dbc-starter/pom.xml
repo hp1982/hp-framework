@@ -13,7 +13,6 @@
     <!-- P R O J E C T  D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>hp-framework-spring-r2dbc-starter</artifactId>
-
     <name>Hui Peng's Java Framework Spring Boot R2DBC Starter</name>
 
     <!-- ====================================================================== -->

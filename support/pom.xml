@@ -5,17 +5,17 @@
 
     <parent>
         <groupId>com.huipeng1982</groupId>
-        <artifactId>hp-framework-spring</artifactId>
+        <artifactId>hp-framework</artifactId>
         <version>0.0.6</version>
     </parent>
 
     <!-- ====================================================================== -->
     <!-- P R O J E C T  D E S C R I P T I O N -->
     <!-- ====================================================================== -->
-    <artifactId>hp-framework-spring-core</artifactId>
+    <artifactId>hp-framework-support</artifactId>
     <packaging>pom</packaging>
 
-    <name>Hui Peng's Java Framework Spring System Core Module</name>
+    <name>Hui Peng's Java Framework Spring Support Tools</name>
 
     <!-- ====================================================================== -->
     <!-- P R O P E R T I E S -->
@@ -23,5 +23,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <!-- ====================================================================== -->
+    <!-- M O D U L E S -->
+    <!-- ====================================================================== -->
+    <modules>
+        <module>maven</module>
+        <module>h2</module>
+    </modules>
 
 </project>

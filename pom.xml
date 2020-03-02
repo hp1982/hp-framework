@@ -72,6 +72,7 @@
         <module>parent</module>
         <module>utils</module>
         <module>spring</module>
+        <module>support</module>
     </modules>
 
     <!-- ====================================================================== -->

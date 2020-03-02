@@ -13,7 +13,6 @@
     <!-- P R O J E C T  D E S C R I P T I O N -->
     <!-- ====================================================================== -->
     <artifactId>hp-framework-spring-test-starter</artifactId>
-
     <name>Hui Peng's Java Framework Spring Boot Test Starter</name>
 
     <!-- ====================================================================== -->
@@ -22,7 +21,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-	
+
 	<dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.huipeng1982</groupId>
+        <artifactId>hp-framework-maven-plugins</artifactId>
+        <version>0.0.6</version>
+    </parent>
+
+    <!-- ====================================================================== -->
+    <!-- P R O J E C T  D E S C R I P T I O N -->
+    <!-- ====================================================================== -->
+    <artifactId>hp-framework-maven-plugins-example-usage</artifactId>
+    <name>Hui Peng's Java Framework Maven Plugins Example Usage</name>
+    <packaging>pom</packaging>
+
+    <!-- ====================================================================== -->
+    <!-- B U I L D -->
+    <!-- ====================================================================== -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.huipeng1982</groupId>
+                <artifactId>hp-framework-maven-plugins-example</artifactId>
+                <version>0.0.6</version>
+                <configuration>
+                    <!-- optional, the command parameter can be changed here too -->
+                    <command>git rev-parse --short=4 HEAD</command>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>version</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+                <artifactId>echo-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>end</id>
+                        <goals>
+                            <goal>echo</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <message>${line.separator}${line.separator}
+                                The project version is ${project.version}-${exampleVersion}
+                                ${line.separator}
+                            </message>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
