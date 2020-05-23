@@ -15,7 +15,7 @@
     <artifactId>hp-framework-support</artifactId>
     <packaging>pom</packaging>
 
-    <name>Hui Peng's Java Framework Spring Support Tools</name>
+    <name>Hui Peng's Java Framework Support Tools</name>
 
     <!-- ====================================================================== -->
     <!-- P R O P E R T I E S -->
