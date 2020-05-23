@@ -32,6 +32,6 @@ public class FilePathUtilTest {
     @Test
     public void getJarPath() {
         System.out.println("the jar file contains Files.class" + FilePathUtil.getJarPath(Files.class));
-        assertThat(FilePathUtil.getJarPath(Files.class)).endsWith("guava-28.1-jre.jar");
+        assertThat(FilePathUtil.getJarPath(Files.class)).endsWith("guava-28.2-jre.jar");
     }
 }
