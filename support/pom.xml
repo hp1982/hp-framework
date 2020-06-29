@@ -30,6 +30,7 @@
     <modules>
         <module>maven</module>
         <module>h2</module>
+        <module>hptop</module>
     </modules>
 
 </project>
