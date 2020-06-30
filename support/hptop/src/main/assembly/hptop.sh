@@ -19,6 +19,6 @@ fi
 DIR=$( cd $(dirname $0) ; pwd -P )
 JAVA_OPTS="-Xms256m -Xmx256m -XX:NewRatio=1 -Xss256k -XX:+UseSerialGC -XX:CICompilerCount=2 -Xverify:none -XX:AutoBoxCacheMax=20000"
 
-"$JAVA_HOME"/bin/java $JAVA_OPTS -jar "$DIR/hp-framework-hp-top.jar:$TOOLSJAR" "$@"
+"$JAVA_HOME"/bin/java $JAVA_OPTS -cp "$DIR/hptop.jar:$TOOLSJAR" com.huipeng1982.hptop.HPTop "$@"
 
 exit $?
