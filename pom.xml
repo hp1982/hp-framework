@@ -63,7 +63,7 @@
         <assertj.version>3.9.0</assertj.version>
         <mockito.version>2.21.0</mockito.version>
         <asm.version>6.2.1</asm.version>
-        <ant.version>1.10.3</ant.version>
+        <ant.version>1.10.8</ant.version>
         <dom4j.version>1.6.1</dom4j.version>
         <jaxen.version>1.1.6</jaxen.version>
 
