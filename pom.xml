@@ -59,7 +59,7 @@
         <cglib.version>3.2.5</cglib.version>
         <commons-collections.version>4.1</commons-collections.version>
         <logback.version>1.2.3</logback.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <assertj.version>3.9.0</assertj.version>
         <mockito.version>2.21.0</mockito.version>
         <asm.version>6.2.1</asm.version>
