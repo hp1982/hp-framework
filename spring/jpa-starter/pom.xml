@@ -22,6 +22,15 @@
     <!-- ====================================================================== -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jpa.specification.version>0.0.6</jpa.specification.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.huipeng1982</groupId>
+            <artifactId>hp-framework-spring-jpa-specification</artifactId>
+            <version>${jpa.specification.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
