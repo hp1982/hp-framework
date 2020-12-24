@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Ordering;
 import com.huipeng1982.utils.base.type.Pair;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.*;
 
@@ -179,5 +180,13 @@ public class CollectionUtil {
         return Ordering.from(comp).leastOf(coll, n);
     }
 
+    /**
+     * 返回Optional对象, back by apache collections4 CollectionUtils.
+     */
+    public static <T> Optional<T> of(T value) {
+        return value instanceof Collection
+            ? CollectionUtils.isEmpty((Collection) value) ? Optional.empty() : Optional.of(value)
+            : Optional.ofNullable(value);
+    }
 }
 

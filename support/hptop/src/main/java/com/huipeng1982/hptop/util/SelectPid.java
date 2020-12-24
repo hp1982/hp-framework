@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class SelectPid {
 
-    public static Integer getPidFromJpsList(){
+    public static Integer getPidFromJpsList() {
 
         Integer pid = null;
         Process process = null;
@@ -22,21 +22,21 @@ public class SelectPid {
             System.out.println("PID\tNAME");
             while ((line = reader.readLine()) != null) {
                 //不显示jps和自己
-                if (!line.contains("sun.tools.jps.Jps") && !line.contains("com.huipeng1982.hptop.HPTop")){
-                    String[] pm = line.split(" ",2);
-                    if (defPidStr.isEmpty()){
+                if (!line.contains("sun.tools.jps.Jps") && !line.contains("com.huipeng1982.hptop.HPTop")) {
+                    String[] pm = line.split(" ", 2);
+                    if (defPidStr.isEmpty()) {
                         defPidStr = pm[0];
                     }
                     System.out.println(pm[0] + "\t" + pm[1]);
                 }
             }
             String pidString = console.readLine("\nplease input pid(default is " + defPidStr + "):");
-            if (pidString == null || pidString.isEmpty()){
+            if (pidString == null || pidString.isEmpty()) {
                 pidString = defPidStr;
             }
             pid = Integer.valueOf(pidString);
-        }catch (Exception ignored){
-        }finally {
+        } catch (Exception ignored) {
+        } finally {
 
             try {
                 if (reader != null) {

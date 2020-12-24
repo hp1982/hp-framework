@@ -1,11 +1,5 @@
 package com.huipeng1982.hptop;
 
-import java.io.BufferedOutputStream;
-import java.io.FileDescriptor;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-
 import com.huipeng1982.hptop.VMDetailView.ContentMode;
 import com.huipeng1982.hptop.VMDetailView.OutputFormat;
 import com.huipeng1982.hptop.VMDetailView.ThreadInfoMode;
@@ -13,9 +7,10 @@ import com.huipeng1982.hptop.VMInfo.VMInfoState;
 import com.huipeng1982.hptop.util.Formats;
 import com.huipeng1982.hptop.util.OptionAdvanceParser;
 import com.huipeng1982.hptop.util.Utils;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+
+import java.io.*;
 
 public class HPTop {
 
@@ -126,6 +121,17 @@ public class HPTop {
         }
     }
 
+    public static void printHelper(OptionParser parser) {
+        try {
+            System.out.println("hptop " + VERSION + " - java monitoring for the command-line");
+            System.out.println("Usage: hptop.sh [options...] <PID>");
+            System.out.println("");
+            parser.printHelpOn(System.out);
+        } catch (IOException ignored) {
+
+        }
+    }
+
     private void run(VMDetailView view) throws Exception {
         try {
             // System.out 设为Buffered，需要使用System.out.flush刷新
@@ -160,17 +166,6 @@ public class HPTop {
             System.out.println("       Please check if the JAVA_HOME environment variable has been set to a JDK path.");
             System.out.println("");
             System.out.flush();
-        }
-    }
-
-    public static void printHelper(OptionParser parser) {
-        try {
-            System.out.println("hptop " + VERSION + " - java monitoring for the command-line");
-            System.out.println("Usage: hptop.sh [options...] <PID>");
-            System.out.println("");
-            parser.printHelpOn(System.out);
-        } catch (IOException ignored) {
-
         }
     }
 

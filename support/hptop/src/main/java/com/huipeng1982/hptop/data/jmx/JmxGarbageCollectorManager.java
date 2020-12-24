@@ -1,22 +1,16 @@
 package com.huipeng1982.hptop.data.jmx;
 
+import com.sun.management.GarbageCollectorMXBean;
+
+import javax.management.MBeanServerConnection;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.util.List;
-
-import javax.management.MBeanServerConnection;
-
-import com.sun.management.GarbageCollectorMXBean;
 
 public class JmxGarbageCollectorManager {
 
     private GarbageCollectorMXBean ygcMXBean = null;
     private GarbageCollectorMXBean fgcMXBean = null;
-
-    public static String getByGcName(String gcName, String defaultName) {
-
-        return defaultName;
-    }
 
     public JmxGarbageCollectorManager(MBeanServerConnection connection) throws IOException {
         if (ygcMXBean != null || fgcMXBean != null) {
@@ -37,6 +31,11 @@ public class JmxGarbageCollectorManager {
                 ygcMXBean = gcMXBean;
             }
         }
+    }
+
+    public static String getByGcName(String gcName, String defaultName) {
+
+        return defaultName;
     }
 
     public synchronized GarbageCollectorMXBean getYoungCollector() {

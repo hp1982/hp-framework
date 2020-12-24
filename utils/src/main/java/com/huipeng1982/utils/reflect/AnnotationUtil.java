@@ -27,7 +27,7 @@ public class AnnotationUtil {
      * @param annotationType
      * @return
      */
-    public static Set<Class> getAllAnnotated(final String prefix, final Class annotationType){
+    public static Set<Class> getAllAnnotated(final String prefix, final Class annotationType) {
         Reflections reflections = new Reflections(prefix);
         return reflections.getTypesAnnotatedWith(annotationType);
     }

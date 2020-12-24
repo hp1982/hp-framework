@@ -1,5 +1,14 @@
 package com.huipeng1982.hptop.data.jmx;
 
+import com.sun.management.HotSpotDiagnosticMXBean;
+import com.sun.management.OperatingSystemMXBean;
+import com.sun.management.ThreadMXBean;
+import com.sun.tools.attach.VirtualMachine;
+
+import javax.management.*;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ClassLoadingMXBean;
@@ -9,32 +18,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.management.Attribute;
-import javax.management.AttributeList;
-import javax.management.AttributeNotFoundException;
-import javax.management.InstanceNotFoundException;
-import javax.management.JMX;
-import javax.management.MBeanException;
-import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import javax.management.ReflectionException;
-import javax.management.remote.JMXConnector;
-import javax.management.remote.JMXConnectorFactory;
-import javax.management.remote.JMXServiceURL;
-
-import com.sun.management.HotSpotDiagnosticMXBean;
-import com.sun.management.OperatingSystemMXBean;
-import com.sun.management.ThreadMXBean;
-import com.sun.tools.attach.VirtualMachine;
+import java.util.*;
 
 @SuppressWarnings("restriction")
 public class JmxClient {
@@ -74,7 +58,7 @@ public class JmxClient {
             JMXServiceURL jmxUrl = new JMXServiceURL(
                 "service:jmx:rmi://" + jmxHostAndPort + "/jndi/rmi://" + jmxHostAndPort + "/jmxrmi");
             Map credentials = new HashMap(1);
-            String[] creds = new String[] { null, null };
+            String[] creds = new String[]{null, null};
             credentials.put(JMXConnector.CREDENTIALS, creds);
 
             this.jmxc = JMXConnectorFactory.connect(jmxUrl, credentials);
@@ -281,7 +265,7 @@ public class JmxClient {
         public static SnapshotMBeanServerConnection newSnapshot(MBeanServerConnection mbsc) {
             final InvocationHandler ih = new SnapshotInvocationHandler(mbsc);
             return (SnapshotMBeanServerConnection) Proxy.newProxyInstance(Snapshot.class.getClassLoader(),
-                new Class[] { SnapshotMBeanServerConnection.class }, ih);
+                new Class[]{SnapshotMBeanServerConnection.class}, ih);
         }
     }
 
@@ -291,12 +275,13 @@ public class JmxClient {
         private Map<ObjectName, NameValueMap> cachedValues = newMap();
         private Map<ObjectName, Set<String>> cachedNames = newMap();
 
-        @SuppressWarnings("serial")
-        private static final class NameValueMap extends HashMap<String, Object> {
-        }
-
         SnapshotInvocationHandler(MBeanServerConnection conn) {
             this.conn = conn;
+        }
+
+        // See http://www.artima.com/weblogs/viewpost.jsp?thread=79394
+        private static <K, V> Map<K, V> newMap() {
+            return new HashMap<K, V>();
         }
 
         synchronized void flush() {
@@ -369,9 +354,8 @@ public class JmxClient {
             return values;
         }
 
-        // See http://www.artima.com/weblogs/viewpost.jsp?thread=79394
-        private static <K, V> Map<K, V> newMap() {
-            return new HashMap<K, V>();
+        @SuppressWarnings("serial")
+        private static final class NameValueMap extends HashMap<String, Object> {
         }
     }
 }

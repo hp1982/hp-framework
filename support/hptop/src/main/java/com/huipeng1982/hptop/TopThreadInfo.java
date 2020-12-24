@@ -1,12 +1,12 @@
 package com.huipeng1982.hptop;
 
-import java.io.IOException;
-import java.lang.management.ThreadInfo;
-
 import com.huipeng1982.hptop.VMDetailView.ThreadInfoMode;
 import com.huipeng1982.hptop.util.LongObjectHashMap;
 import com.huipeng1982.hptop.util.LongObjectMap;
 import com.huipeng1982.hptop.util.Utils;
+
+import java.io.IOException;
+import java.lang.management.ThreadInfo;
 
 public class TopThreadInfo {
     private VMInfo vmInfo;

@@ -1,14 +1,13 @@
 package com.huipeng1982.hptop.util;
 
-import java.util.Arrays;
-
 import com.huipeng1982.hptop.HPTop;
 import com.huipeng1982.hptop.VMDetailView.ContentMode;
 import com.huipeng1982.hptop.VMDetailView.OutputFormat;
 import com.huipeng1982.hptop.VMDetailView.ThreadInfoMode;
-
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+
+import java.util.Arrays;
 
 public class OptionAdvanceParser {
 
@@ -22,7 +21,7 @@ public class OptionAdvanceParser {
             pid = Integer.valueOf((String) optionSet.nonOptionArguments().get(0));
         }
 
-        if (pid == null){
+        if (pid == null) {
             pid = SelectPid.getPidFromJpsList();
         }
 

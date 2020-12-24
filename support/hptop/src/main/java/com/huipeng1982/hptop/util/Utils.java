@@ -1,10 +1,6 @@
 package com.huipeng1982.hptop.util;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Utils {
 

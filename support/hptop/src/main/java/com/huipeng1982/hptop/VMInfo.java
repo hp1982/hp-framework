@@ -1,5 +1,15 @@
 package com.huipeng1982.hptop;
 
+import com.huipeng1982.hptop.data.PerfData;
+import com.huipeng1982.hptop.data.ProcFileData;
+import com.huipeng1982.hptop.data.jmx.JmxClient;
+import com.huipeng1982.hptop.data.jmx.JmxMemoryPoolManager;
+import com.huipeng1982.hptop.util.Formats;
+import com.huipeng1982.hptop.util.Utils;
+import sun.management.counter.Counter;
+import sun.management.counter.LongCounter;
+import sun.management.counter.StringCounter;
+
 import java.io.IOException;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryUsage;
@@ -7,39 +17,18 @@ import java.lang.management.ThreadInfo;
 import java.util.Locale;
 import java.util.Map;
 
-import com.huipeng1982.hptop.data.PerfData;
-import com.huipeng1982.hptop.data.ProcFileData;
-import com.huipeng1982.hptop.data.jmx.JmxClient;
-import com.huipeng1982.hptop.data.jmx.JmxMemoryPoolManager;
-import com.huipeng1982.hptop.util.Formats;
-import com.huipeng1982.hptop.util.Utils;
-
-import sun.management.counter.Counter;
-import sun.management.counter.LongCounter;
-import sun.management.counter.StringCounter;
-
 @SuppressWarnings("restriction")
 public class VMInfo {
-    private JmxClient jmxClient = null;
-
-    private PerfData perfData = null;
     public boolean perfDataSupport = false;
-
     public VMInfoState state = VMInfoState.INIT;
     public String pid;
-    private int jmxUpdateErrorCount;
-
-    // 静态数据//
-    private long startTime = 0;
     public String osUser;
     public String vmArgs = "";
     public String jvmVersion = "";
     public int jvmMajorVersion;
-
     public String permGenName;
     public long threadStackSize;
     public long maxDirectMemorySize;
-
     public int processors;
     public boolean isLinux;
     public boolean ioDataSupport = true;// 不是同一个用户，不能读/proc/PID/io
@@ -47,53 +36,45 @@ public class VMInfo {
     public boolean threadCpuTimeSupported;
     public boolean threadMemoryAllocatedSupported;
     public boolean threadContentionMonitoringSupported;
-
     public WarningRule warningRule = new WarningRule();
-
     // 动态数据//
     public Rate upTimeMills = new Rate();
     public Rate cpuTimeNanos = new Rate();
-
     public long rss;
     public long peakRss;
     public long swap;
     public long osThreads;
-
     public Rate readBytes = new Rate();
     public Rate writeBytes = new Rate();
-
     public double cpuLoad = 0.0;
     public double singleCoreCpuLoad = 0.0;
-
     public Rate ygcCount = new Rate();
     public Rate ygcTimeMills = new Rate();
     public Rate fullgcCount = new Rate();
     public Rate fullgcTimeMills = new Rate();
     public String currentGcCause = "";
-
     public long threadActive;
     public long threadDaemon;
     public long threadPeak;
     public Rate threadNew = new Rate();
-
     public Rate classLoaded = new Rate();
     public long classUnLoaded;
-
     public Rate safepointCount = new Rate();
     public Rate safepointTimeMills = new Rate();
     public Rate safepointSyncTimeMills = new Rate();
-
     public Usage eden;
     public Usage sur;
     public Usage old;
-
     public Usage perm;
     public Usage codeCache;
     public Usage ccs;
-
     public Usage direct;
     public Usage map;
-
+    private JmxClient jmxClient = null;
+    private PerfData perfData = null;
+    private int jmxUpdateErrorCount;
+    // 静态数据//
+    private long startTime = 0;
     private LongCounter threadLiveCounter;
     private LongCounter threadDaemonCounter;
     private LongCounter threadPeakCounter;
@@ -153,6 +134,18 @@ public class VMInfo {
         vmInfo.state = state;
         vmInfo.pid = pid;
         return vmInfo;
+    }
+
+    private static int getJavaMajorVersion(String jvmVersion) {
+        if (jvmVersion.startsWith("1.8")) {
+            return 8;
+        } else if (jvmVersion.startsWith("1.7")) {
+            return 7;
+        } else if (jvmVersion.startsWith("1.6")) {
+            return 6;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -480,27 +473,15 @@ public class VMInfo {
         return state != VMInfoState.ATTACHED_UPDATE_ERROR && state != VMInfoState.DETACHED;
     }
 
-    private static int getJavaMajorVersion(String jvmVersion) {
-        if (jvmVersion.startsWith("1.8")) {
-            return 8;
-        } else if (jvmVersion.startsWith("1.7")) {
-            return 7;
-        } else if (jvmVersion.startsWith("1.6")) {
-            return 6;
-        } else {
-            return 0;
-        }
-    }
-
     public enum VMInfoState {
         INIT, ERROR_DURING_ATTACH, ATTACHED, ATTACHED_UPDATE_ERROR, DETACHED
     }
 
     public static class Rate {
-        private long last = -1;
         public long current = -1;
         public long delta = 0;
         public long ratePerSecond = 0;
+        private long last = -1;
 
         public void update(long current) {
             this.current = current;

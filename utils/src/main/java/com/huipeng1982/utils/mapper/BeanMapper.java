@@ -19,13 +19,14 @@ import java.util.List;
  */
 public class BeanMapper {
 
-    private BeanMapper(){}
-
     private static MapperFacade mapper;
 
     static {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
         mapper = mapperFactory.getMapperFacade();
+    }
+
+    private BeanMapper() {
     }
 
     /**

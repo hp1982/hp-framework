@@ -4,28 +4,28 @@ jdk: oraclejdk8
 
 cache:
     directories:
-    - '$HOME/.m2/repository'
+        - '$HOME/.m2/repository'
 
 before_cache:
-    # No sense in caching current build artifacts
+  # No sense in caching current build artifacts
     rm -rf $HOME/.m2/repository/com.huipeng1982
 
 before_script:
-- wget https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.zip
-- unzip -qq apache-maven-3.5.4-bin.zip
-- export M2_HOME="$PWD/apache-maven-3.5.4"
-- export PATH="$M2_HOME/bin:$PATH"
-- echo "MAVEN_OPTS='-Xmx512m -Dgpg.skip=true'" > ~/.mavenrc
-- mvn package -U
+    - wget https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.zip
+    - unzip -qq apache-maven-3.5.4-bin.zip
+    - export M2_HOME="$PWD/apache-maven-3.5.4"
+    - export PATH="$M2_HOME/bin:$PATH"
+    - echo "MAVEN_OPTS='-Xmx512m -Dgpg.skip=true'" > ~/.mavenrc
+    - mvn package -U
 
 after_success: "sbt coveralls"
 
 # Skip default "mvn install" issued by Travis
 install: true
 script:
-- mvn test -B -V
+    - mvn test -B -V
 
 notifications:
     email:
         recipients:
-        - huipeng1982@live.com
+            - huipeng1982@live.com

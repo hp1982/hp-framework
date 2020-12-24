@@ -1,10 +1,10 @@
 package com.huipeng1982.hptop;
 
+import com.huipeng1982.hptop.VMDetailView.ThreadInfoMode;
+
 import java.io.Console;
 import java.io.IOException;
 import java.io.PrintStream;
-
-import com.huipeng1982.hptop.VMDetailView.ThreadInfoMode;
 
 /**
  * 与用户交互动态的控制器

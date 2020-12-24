@@ -1,8 +1,5 @@
 package com.huipeng1982.spring.redis.starter.test;
 
-import java.io.IOException;
-import java.time.Duration;
-
 import com.huipeng1982.spring.redis.starter.SpringRedisReactiveApplication;
 import com.huipeng1982.spring.redis.starter.model.Employee;
 import org.junit.AfterClass;
@@ -17,10 +14,12 @@ import org.springframework.data.redis.core.ReactiveValueOperations;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import redis.embedded.RedisServerBuilder;
+
+import java.io.IOException;
+import java.time.Duration;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SpringRedisReactiveApplication.class)

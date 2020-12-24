@@ -23,6 +23,7 @@
         <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
         <spring-data-r2dbc.version>1.0.0.RELEASE</spring-data-r2dbc.version>
         <r2dbc.version>0.8.2.RELEASE</r2dbc.version>
+        <javaee.version>8.0</javaee.version>
         <java.version.source>1.8</java.version.source>
         <java.version.target>1.8</java.version.target>
         <guava.version>28.2-jre</guava.version>
@@ -74,6 +75,12 @@
                 <groupId>io.r2dbc</groupId>
                 <artifactId>r2dbc-h2</artifactId>
                 <version>${r2dbc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee.version}</version>
             </dependency>
 
             <dependency>

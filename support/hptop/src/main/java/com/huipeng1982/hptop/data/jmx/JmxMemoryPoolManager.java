@@ -1,11 +1,10 @@
 package com.huipeng1982.hptop.data.jmx;
 
+import javax.management.MBeanServerConnection;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.util.List;
-
-import javax.management.MBeanServerConnection;
 
 public class JmxMemoryPoolManager {
     public static final String EDEN = "eden";

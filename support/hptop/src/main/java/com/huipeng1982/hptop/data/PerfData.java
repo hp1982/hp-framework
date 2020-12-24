@@ -1,17 +1,16 @@
 package com.huipeng1982.hptop.data;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-
 import com.huipeng1982.hptop.util.Utils;
 import sun.management.counter.Counter;
 import sun.management.counter.LongCounter;
 import sun.management.counter.perf.PerfInstrumentation;
 import sun.misc.Perf;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("restriction")
 public class PerfData {
@@ -20,6 +19,15 @@ public class PerfData {
     private final double nanosPerTick;
 
     private final Map<String, Counter> counters;
+
+    private PerfData(int pid) throws IOException {
+        ByteBuffer bb = Perf.getPerf().attach(pid, "r");
+        instr = new PerfInstrumentation(bb);
+        counters = buildAllCounters();
+
+        long hz = (Long) counters.get("sun.os.hrt.frequency").getValue();
+        nanosPerTick = ((double) TimeUnit.SECONDS.toNanos(1)) / hz;
+    }
 
     public static PerfData connect(int pid) {
         try {
@@ -31,15 +39,6 @@ public class PerfData {
         } catch (Throwable e) {
             throw new RuntimeException("Cannot perf data for process " + pid + " - " + e.toString());
         }
-    }
-
-    private PerfData(int pid) throws IOException {
-        ByteBuffer bb = Perf.getPerf().attach(pid, "r");
-        instr = new PerfInstrumentation(bb);
-        counters = buildAllCounters();
-
-        long hz = (Long) counters.get("sun.os.hrt.frequency").getValue();
-        nanosPerTick = ((double) TimeUnit.SECONDS.toNanos(1)) / hz;
     }
 
     private Map<String, Counter> buildAllCounters() {

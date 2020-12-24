@@ -22,6 +22,8 @@
     <!-- ====================================================================== -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javaee.version>8.0</javaee.version>
+        <utils.version>0.0.6</utils.version>
     </properties>
 
     <!-- ====================================================================== -->
@@ -33,6 +35,7 @@
         <module>servletweb-starter</module>
         <module>datasource-starter</module>
         <module>jdbc-starter</module>
+        <module>jpa-specification</module>
         <module>jpa-starter</module>
         <module>mybatis-starter</module>
         <module>r2dbc-starter</module>
@@ -44,4 +47,21 @@
         <module>swagger-starter</module>
     </modules>
 
+    <!-- ====================================================================== -->
+    <!-- D E P E N D E N C Y  M A N A G E M E N T -->
+    <!-- ====================================================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.huipeng1982</groupId>
+                <artifactId>hp-framework-utils</artifactId>
+                <version>${utils.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

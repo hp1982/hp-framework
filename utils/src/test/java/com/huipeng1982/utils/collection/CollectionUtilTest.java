@@ -93,5 +93,15 @@ public class CollectionUtilTest {
         assertThat(CollectionUtil.bottomN(list, 3)).containsExactly(2, 3, 4);
         assertThat(CollectionUtil.bottomN(list, 3, Ordering.natural().reverse())).containsExactly(9, 7, 6);
     }
+
+    @Test
+    public void of() {
+        List<Integer> list = ArrayUtil.asList(3, 5, 7, 4, 2, 6, 9);
+
+        assertThat(CollectionUtil.of(list).get()).contains(9, 7, 6);
+        assertThat(CollectionUtil.of(ArrayUtil.newArray(String.class, 10)).isPresent()).isTrue();
+        assertThat(CollectionUtil.of(7).get()).isEqualTo(7);
+        assertThat(CollectionUtil.of(null).isPresent()).isFalse();
+    }
 }
 

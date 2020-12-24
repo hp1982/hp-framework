@@ -15,14 +15,13 @@ public class Formats {
     public static final long MB_SIZE = KB_SIZE * 1024;
     private static final long GB_SIZE = MB_SIZE * 1024;
     private static final long TB_SIZE = GB_SIZE * 1024;
-
-    private static String[] RED_ANSI = new String[] { "\033[31m\033[01m", "\033[0m" };
-    private static String[] YELLOW_ANSI = new String[] { "\033[33m\033[01m", "\033[0m" };
-    private static final String[] NORMAL_ANSI = new String[] { "", "" };
-    private static String CLEAR_TERMINAL_ANSI_CMD = new String(
-        new byte[] { (byte) 0x1b, (byte) 0x5b, (byte) 0x32, (byte) 0x4a, (byte) 0x1b, (byte) 0x5b, (byte) 0x48 });
-
+    private static final String[] NORMAL_ANSI = new String[]{"", ""};
     public static boolean isWindows = System.getProperty("os.name").toLowerCase(Locale.US).contains("windows");
+    private static String[] RED_ANSI = new String[]{"\033[31m\033[01m", "\033[0m"};
+    private static String[] YELLOW_ANSI = new String[]{"\033[33m\033[01m", "\033[0m"};
+    private static String CLEAR_TERMINAL_ANSI_CMD = new String(
+        new byte[]{(byte) 0x1b, (byte) 0x5b, (byte) 0x32, (byte) 0x4a, (byte) 0x1b, (byte) 0x5b, (byte) 0x48});
+
     {
         if (isWindows) {
             disableAnsi();
@@ -196,7 +195,7 @@ public class Formats {
 
     /**
      * shortName("123456789", 8, 3) = "12...789"
-     *
+     * <p>
      * shortName("123456789", 8, 2) = "123...89"
      */
     public static String shortName(String str, int length, int rightLength) {

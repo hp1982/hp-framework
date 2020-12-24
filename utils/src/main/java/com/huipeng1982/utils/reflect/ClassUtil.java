@@ -34,7 +34,7 @@ public class ClassUtil {
      * @param <T>
      * @return
      */
-    public static <T> Set<Class<? extends T>> getAllSubTypes(final String prefix, final Class<T> type){
+    public static <T> Set<Class<? extends T>> getAllSubTypes(final String prefix, final Class<T> type) {
         Reflections reflections = new Reflections(prefix);
         return reflections.getSubTypesOf(type);
     }

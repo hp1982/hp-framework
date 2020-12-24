@@ -1,15 +1,15 @@
 package com.huipeng1982.hptop;
 
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadInfo;
-import java.util.Date;
-
-import com.sun.management.OperatingSystemMXBean;
 import com.huipeng1982.hptop.TopThreadInfo.TopCpuResult;
 import com.huipeng1982.hptop.TopThreadInfo.TopMemoryResult;
 import com.huipeng1982.hptop.util.Formats;
 import com.huipeng1982.hptop.util.Utils;
+import com.sun.management.OperatingSystemMXBean;
+
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.util.Date;
 
 @SuppressWarnings("restriction")
 public class VMDetailView {
@@ -17,27 +17,22 @@ public class VMDetailView {
     private static final int MIN_WIDTH = 80;
 
     public ThreadInfoMode threadInfoMode;
-    private ContentMode contentMode;
-    private OutputFormat format;
-
     public int threadLimit = 10;
     public int interval;
     public String threadNameFilter = null;
-
-    private int width;
-
     public VMInfo vmInfo;
     public TopThreadInfo topThreadInfo;
     public ThreadPrinter threadPrinter;
+    public boolean displayCommandHints = false;
+    private ContentMode contentMode;
+    private OutputFormat format;
+    private int width;
     private WarningRule warning;
-
     // 纪录hptop进程本身的消耗
     private boolean isDebugCost = false;
     private long lastCpu = 0;
-
     private boolean shouldExit = false;
     private boolean firstTime = true;
-    public boolean displayCommandHints = false;
 
     public VMDetailView(VMInfo vmInfo, OutputFormat format, ContentMode contentMode, ThreadInfoMode threadInfoMode,
                         Integer width, Integer interval) throws Exception {
@@ -536,11 +531,12 @@ public class VMDetailView {
 
     public enum OutputFormat {
         console(true), cleanConsole(false), text(false);
+
+        public boolean ansi;
+
         OutputFormat(boolean ansi) {
             this.ansi = ansi;
         }
-
-        public boolean ansi;
     }
 
     public enum ContentMode {
